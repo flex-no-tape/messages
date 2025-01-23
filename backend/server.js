@@ -10,6 +10,11 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Serve a basic message on the root URL
+app.get('/', (req, res) => {
+    res.send('Welcome to the Message Board API!');
+});
+
 // Database setup
 const db = new sqlite3.Database(':memory:');
 db.serialize(() => {
