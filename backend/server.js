@@ -10,9 +10,9 @@ const PORT = 3000;
 // Middleware
 app.use(bodyParser.json());
 
-// Allow CORS
+// Allow CORS (for local development)
 const corsOptions = {
-    origin: 'http://3.104.63.29:3000/', // Update this to restrict access to specific origins in production
+    origin: 'http://3.104.63.29:3000', // Adjust as needed for production
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 };
@@ -27,14 +27,15 @@ app.get('/', (req, res) => {
 });
 
 // Database setup
-const db = new sqlite3.Database(':memory:');
+const db = new sqlite3.Database('message-board.db');  // File-based SQLite database
 db.serialize(() => {
-    db.run('CREATE TABLE messages (id INTEGER PRIMARY KEY, content TEXT)');
+    // Create the table if it doesn't already exist
+    db.run('CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, content TEXT)');
 });
 
 // Fetch messages
 app.get('/messages', (req, res) => {
-    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => {
+    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => { // Get the latest messages
         if (err) {
             return res.status(500).json({ error: err.message });
         }
