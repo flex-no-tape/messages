@@ -8,8 +8,15 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
+
+// Allow CORS
+const corsOptions = {
+    origin: 'http://3.104.63.29:3000/', // Update this to restrict access to specific origins in production
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+};
+app.use(cors(corsOptions));
 
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -27,7 +34,7 @@ db.serialize(() => {
 
 // Fetch messages
 app.get('/messages', (req, res) => {
-    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => { // Get the latest messages
+    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
