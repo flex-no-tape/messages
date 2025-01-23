@@ -5,47 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message Board</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        .container {
-            width: 80%;
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        .message-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .message-board {
-            list-style-type: none;
-            padding: 0;
-        }
-        .message {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-    </style> 
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="mode-toggle" onclick="toggleMode()">Switch to Sorta Dark Mode</div>
 
 <div class="container">
     <h1>Message Board</h1>

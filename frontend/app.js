@@ -1,12 +1,34 @@
-// Wait for the DOM to be fully loaded before running any script
-document.addEventListener('DOMContentLoaded', function() {
-    // Load messages from the backend when the page loads
+// When the page loads, check if dark mode is enabled in local storage
+window.onload = function() {
     loadMessages();
-});
+    // Set the mode based on localStorage or default to light mode
+    if (localStorage.getItem('mode') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('mode-toggle').innerText = 'Switch to Light Mode';
+    } else {
+        document.getElementById('mode-toggle').innerText = 'Switch to Sorta Dark Mode';
+    }
+};
 
-// Function to load messages from the server
+// Toggle between dark mode and light mode
+function toggleMode() {
+    const body = document.body;
+    const modeToggleButton = document.getElementById('mode-toggle');
+    body.classList.toggle('dark-mode');
+
+    // Save the mode in localStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('mode', 'dark');
+        modeToggleButton.innerText = 'Switch to Light Mode';
+    } else {
+        localStorage.setItem('mode', 'light');
+        modeToggleButton.innerText = 'Switch to Sorta Dark Mode';
+    }
+}
+
+// Function to load messages from the backend
 function loadMessages() {
-    fetch('http://3.104.63.29:3000/messages')  // Use your EC2 public IP or domain
+    fetch('http://localhost:3000/messages')
         .then(response => response.json())
         .then(messages => {
             const messageBoard = document.getElementById('message-board');
@@ -26,7 +48,7 @@ function addMessage() {
     const messageInput = document.getElementById('message-input');
     const message = messageInput.value.trim();
     if (message) {
-        fetch('http://3.104.63.29:3000/messages', {  // Use your EC2 public IP or domain
+        fetch('http://localhost:3000/messages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message }),
