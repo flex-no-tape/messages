@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path'); // Required for serving static files
 
 const app = express();
 const PORT = 3000;
@@ -10,9 +11,12 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve a basic message on the root URL
+// Serve static files from the frontend directory
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// Serve the frontend on the root URL
 app.get('/', (req, res) => {
-    res.send('Welcome to the Message Board API!');
+    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 // Database setup
@@ -23,7 +27,7 @@ db.serialize(() => {
 
 // Fetch messages
 app.get('/messages', (req, res) => {
-    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => {  // Get the latest messages
+    db.all('SELECT * FROM messages ORDER BY id DESC', [], (err, rows) => { // Get the latest messages
         if (err) {
             return res.status(500).json({ error: err.message });
         }
