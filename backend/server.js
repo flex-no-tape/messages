@@ -12,11 +12,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the frontend directory
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Serve the frontend on the root URL
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+    res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
 
 // Database setup
