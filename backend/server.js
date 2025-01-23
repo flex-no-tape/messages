@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // Allow CORS (for local development)
 const corsOptions = {
-    origin: 'http://localhost:3000', // Adjust as needed for production
+    origin: 'http://3.104.63.29:3000', // Adjust as needed for production
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 };
