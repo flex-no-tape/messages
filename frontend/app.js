@@ -1,13 +1,6 @@
-// app.js
-
-// Load messages from the backend when the page loads
-window.onload = function() {
-    loadMessages();
-};
-
 // Function to load messages from the server
 function loadMessages() {
-    fetch('http://localhost:3000/messages')
+    fetch('http://3.104.63.29:3000/messages')  // Change to your EC2 instance IP or domain
         .then(response => response.json())
         .then(messages => {
             const messageBoard = document.getElementById('message-board');
@@ -27,7 +20,7 @@ function addMessage() {
     const messageInput = document.getElementById('message-input');
     const message = messageInput.value.trim();
     if (message) {
-        fetch('http://localhost:3000/messages', {
+        fetch('http://3.104.63.29:3000/messages', {  // Change to your EC2 instance IP or domain
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message }),
