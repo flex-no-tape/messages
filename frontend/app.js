@@ -28,7 +28,7 @@ function toggleMode() {
 
 // Function to load messages from the backend
 function loadMessages() {
-    fetch('http://3.104.63.29:3000/messages')
+    fetch('http://3.25.189.169:3000/messages')
         .then(response => response.json())
         .then(messages => {
             const messageBoard = document.getElementById('message-board');
@@ -48,7 +48,7 @@ function addMessage() {
     const messageInput = document.getElementById('message-input');
     const message = messageInput.value.trim();
     if (message) {
-        fetch('http://3.104.63.29:3000/messages', {
+        fetch('http://3.25.189.169:3000/messages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message }),
